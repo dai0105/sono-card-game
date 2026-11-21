@@ -1,0 +1,815 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <meta
+        name="description"
+        content="同じ5枚のカードでCPUと5ROUND勝負。強いカードをいつ使うか、相手の残り手札を読みながら戦う短時間カードゲームです。"
+    >
+
+    <title>
+        そのカード、出します？
+    </title>
+
+    <link
+        rel="stylesheet"
+        href="{% static 'game/css/style.css' %}"
+    >
+</head>
+
+<body>
+
+    <main class="game-container">
+
+
+        <!-- =========================
+             TITLE SCREEN
+        ========================== -->
+
+        <section
+            id="title-screen"
+            class="screen title-screen"
+        >
+
+            <div class="title-content">
+
+                <!-- =========================
+                    TITLE
+                ========================== -->
+
+                <h1>
+                    そのカード、出します？
+                </h1>
+
+                <p class="game-subtitle">
+                    強いカード、いつ使う？
+                </p>
+
+                <p class="game-introduction">
+                    CPUと5ROUNDのカード勝負。
+                    <br>
+                    相手の残り手札を読みながら、
+                    5枚のカードを使い切ろう。
+                </p>
+
+
+                <!-- =========================
+                    CARDS
+                ========================== -->
+
+                <div class="title-cards">
+
+                    <span class="title-card">
+                        1
+                    </span>
+
+                    <span class="title-card">
+                        3
+                    </span>
+
+                    <span class="title-card">
+                        5
+                    </span>
+
+                    <span class="title-card">
+                        7
+                    </span>
+
+                    <span class="title-card">
+                        9
+                    </span>
+
+                </div>
+
+
+                <!-- =========================
+                    BASIC RULE
+                ========================== -->
+
+                <section class="title-rule-section">
+
+                    <p class="title-section-label">
+                        HOW TO PLAY
+                    </p>
+
+                    <h2>
+                        ルールはシンプル。
+                    </h2>
+
+
+                    <div class="title-rule-list">
+
+                        <div class="title-rule-item">
+
+                            <span class="rule-number">
+                                01
+                            </span>
+
+                            <div>
+
+                                <h3>
+                                    1枚選ぶ
+                                </h3>
+
+                                <p>
+                                    YOUとCPUは、
+                                    1・3・5・7・9の
+                                    同じ5枚からスタート。
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="title-rule-item">
+
+                            <span class="rule-number">
+                                02
+                            </span>
+
+                            <div>
+
+                                <h3>
+                                    同時に公開
+                                </h3>
+
+                                <p>
+                                    基本は大きい数字を
+                                    出した方が勝ち。
+                                </p>
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="title-rule-item">
+
+                            <span class="rule-number">
+                                03
+                            </span>
+
+                            <div>
+
+                                <h3>
+                                    使ったカードは戻らない
+                                </h3>
+
+                                <p>
+                                    一度使ったカードは消えます。
+                                    5ROUNDですべてのカードを
+                                    1回ずつ使います。
+                                </p>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================
+                    MIND GAME
+                ========================== -->
+
+                <section class="title-strategy-section">
+
+                    <p class="title-section-label">
+                        POINT
+                    </p>
+
+                    <h2>
+                        強いカードを出せばいい、
+                        とは限らない。
+                    </h2>
+
+                    <p>
+                        9は一番強いカード。
+                        でも、CPUが1を出したROUNDで
+                        9を使ってしまったら？
+                    </p>
+
+                    <p>
+                        逆に1を出して、
+                        CPUの9を使わせることができれば、
+                        負けても次のROUNDが有利になるかもしれません。
+                    </p>
+
+                    <p class="strategy-emphasis">
+                        今勝つか。
+                        <br>
+                        次の勝負に残すか。
+                    </p>
+
+                </section>
+
+
+                <!-- =========================
+                    SPECIAL ROUND
+                ========================== -->
+
+                <section class="title-special-section">
+
+                    <p class="title-section-label">
+                        SPECIAL ROUND
+                    </p>
+
+                    <h2>
+                        ときどき、ルールが変わる。
+                    </h2>
+
+
+                    <div class="title-special-rules">
+
+                        <!-- TARGET -->
+
+                        <div class="title-special target">
+
+                            <p class="special-name">
+                                TARGET
+                            </p>
+
+                            <h3>
+                                指定カードで勝てば
+                                2 POINT
+                            </h3>
+
+                            <p>
+                                TARGETに指定された数字で
+                                勝利すると、
+                                通常の2倍のPOINTを獲得。
+                            </p>
+
+                            <p class="special-note">
+                                TARGETは
+                                1ゲームに必ず1回発生。
+                            </p>
+
+                        </div>
+
+
+                        <!-- REVERSE -->
+
+                        <div class="title-special reverse">
+
+                            <p class="special-name">
+                                REVERSE
+                            </p>
+
+                            <h3>
+                                小さい数字が勝つ
+                            </h3>
+
+                            <p>
+                                このROUNDだけ、
+                                カードの強さが逆転します。
+                            </p>
+
+                            <p class="special-note">
+                                REVERSEは
+                                発生しないこともあります。
+                            </p>
+
+                        </div>
+
+                    </div>
+
+                </section>
+
+
+                <!-- =========================
+                    GOAL
+                ========================== -->
+
+                <section class="title-goal-section">
+
+                    <p class="title-section-label">
+                        GOAL
+                    </p>
+
+                    <h2>
+                        5ROUNDで決着。
+                    </h2>
+
+                    <p>
+                        ROUNDに勝利すると
+                        1 POINT。
+                    </p>
+
+                    <p>
+                        TARGET成功なら
+                        2 POINT。
+                    </p>
+
+                    <p>
+                        5ROUND終了時、
+                        POINTが多い方の勝利です。
+                    </p>
+
+                </section>
+
+
+                <!-- =========================
+                    START
+                ========================== -->
+
+                <div class="title-start-area">
+
+                    <p>
+                        CPUはあなたの残り手札を見て、
+                        次のカードを考えます。
+                    </p>
+
+                    <strong>
+                        CPUの一手を読めますか？
+                    </strong>
+
+                    <button
+                        id="start-button"
+                        class="start-button"
+                        type="button"
+                    >
+                        GAME START
+                    </button>
+
+                </div>
+
+                <div class="portal-link-section">
+
+                    <p>
+                        ほかのゲームも5分で遊べます
+                    </p>
+
+                    <a
+                        href="https://five-minute-games-10zm.onrender.com/"
+                        class="portal-link"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >
+                        🎮 ほかの5分ゲームを見る
+                    </a>
+
+                </div>
+
+            </div>
+
+        </section>
+
+
+
+        <!-- =========================
+             GAME SCREEN
+        ========================== -->
+
+        <section
+            id="game-screen"
+            class="screen game-screen"
+            hidden
+        >
+
+
+            <!-- GAME HEADER -->
+
+            <header class="game-header">
+
+                <p class="game-label">
+                    そのカード、出します？
+                </p>
+
+                <p class="game-subtitle-small">
+                    強いカード、いつ使う？
+                </p>
+
+            </header>
+
+
+            <!-- STATUS -->
+
+            <section class="status-panel">
+
+                <div class="round-status">
+
+                    <span class="status-label">
+                        ROUND
+                    </span>
+
+                    <strong id="round-number">
+                        1 / 5
+                    </strong>
+
+                </div>
+
+
+                <div class="score-board">
+
+                    <div class="score-item player-score">
+
+                        <span class="status-label">
+                            YOU
+                        </span>
+
+                        <strong id="player-score">
+                            0
+                        </strong>
+
+                        <span class="point-label">
+                            POINT
+                        </span>
+
+                    </div>
+
+
+                    <div class="score-separator">
+                        VS
+                    </div>
+
+
+                    <div class="score-item cpu-score">
+
+                        <span class="status-label">
+                            CPU
+                        </span>
+
+                        <strong id="cpu-score">
+                            0
+                        </strong>
+
+                        <span class="point-label">
+                            POINT
+                        </span>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+
+            <!-- ROUND TYPE -->
+
+            <section
+                id="round-info"
+                class="round-info normal"
+            >
+
+                <p
+                    id="round-type"
+                    class="round-type"
+                >
+                    NORMAL ROUND
+                </p>
+
+                <p
+                    id="round-rule"
+                    class="round-rule"
+                >
+                    大きい数字が勝ち
+                </p>
+
+            </section>
+
+
+            <!-- CPU HAND -->
+
+            <section class="cpu-area">
+
+                <div class="area-heading">
+
+                    <div>
+
+                        <p class="area-label">
+                            OPPONENT
+                        </p>
+
+                        <h2>
+                            CPU
+                        </h2>
+
+                    </div>
+
+
+                    <p class="remaining-label">
+                        残り
+                        <span id="cpu-card-count">
+                            5
+                        </span>
+                        枚
+                    </p>
+
+                </div>
+
+
+                <div
+                    id="cpu-cards"
+                    class="cpu-cards"
+                >
+                </div>
+
+            </section>
+
+
+            <!-- BATTLE FIELD -->
+
+            <section class="battle-field">
+
+                <div class="battle-card-area">
+
+
+                    <!-- PLAYER -->
+
+                    <div class="battle-side">
+
+                        <p class="battle-owner">
+                            YOU
+                        </p>
+
+                        <div
+                            id="player-battle-card"
+                            class="battle-card player"
+                        >
+                            ?
+                        </div>
+
+                    </div>
+
+
+                    <div class="battle-vs">
+                        VS
+                    </div>
+
+
+                    <!-- CPU -->
+
+                    <div class="battle-side">
+
+                        <p class="battle-owner">
+                            CPU
+                        </p>
+
+                        <div
+                            id="cpu-battle-card"
+                            class="battle-card cpu"
+                        >
+                            ?
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div
+                    id="battle-message"
+                    class="battle-message"
+                    aria-live="polite"
+                >
+                    カードを1枚選んでください。
+                </div>
+
+                <div
+                    id="round-result-panel"
+                    class="round-result-panel"
+                    hidden
+                >
+
+                    <p
+                        id="round-result-title"
+                        class="round-result-title"
+                    >
+                        ROUND WIN!
+                    </p>
+
+                    <p
+                        id="round-result-point"
+                        class="round-result-point"
+                    >
+                        +1 POINT
+                    </p>
+
+                    <button
+                        id="next-round-button"
+                        class="next-round-button"
+                        type="button"
+                    >
+                        次のROUNDへ
+                    </button>
+
+                </div>
+
+            </section>
+
+
+            <!-- PLAYER HAND -->
+
+            <div id="player-action-area">
+
+                <section class="player-area">
+
+                    <div class="area-heading">
+
+                        <div>
+
+                            <p class="area-label">
+                                YOUR HAND
+                            </p>
+
+                            <h2>
+                                あなたのカード
+                            </h2>
+
+                        </div>
+
+                        <p class="remaining-label">
+                            残り
+                            <span id="player-card-count">
+                                5
+                            </span>
+                            枚
+                        </p>
+
+                    </div>
+
+                    <div
+                        id="player-cards"
+                        class="player-cards"
+                    >
+                    </div>
+
+                    <div class="selected-info">
+
+                        選択中：
+
+                        <strong id="selected-card">
+                            なし
+                        </strong>
+
+                    </div>
+
+                    <button
+                        id="play-button"
+                        class="play-button"
+                        type="button"
+                        disabled
+                    >
+                        このカードを出す
+                    </button>
+
+                </section>
+
+                <section class="mini-rule">
+
+                    <p>
+                        使ったカードは戻りません。
+                    </p>
+
+                    <p>
+                        CPUの残り手札を見ながら、
+                        次の1枚を読もう。
+                    </p>
+
+                </section>
+
+            </div>
+        </section>
+        <!-- /GAME SCREEN -->
+
+
+        <!-- =========================
+             RESULT SCREEN
+        ========================== -->
+
+        <section
+            id="result-screen"
+            class="screen result-screen"
+            hidden
+        >
+
+            <div class="result-content">
+
+                <p class="game-label">
+                    FINAL RESULT
+                </p>
+
+
+                <h2 id="result-title">
+                    YOU WIN!
+                </h2>
+
+
+                <!-- FINAL SCORE -->
+
+                <div class="final-score">
+
+                    <div class="final-score-item">
+
+                        <span>
+                            YOU
+                        </span>
+
+                        <strong id="result-player-score">
+                            0
+                        </strong>
+
+                    </div>
+
+
+                    <div class="final-score-separator">
+                        -
+                    </div>
+
+
+                    <div class="final-score-item">
+
+                        <span>
+                            CPU
+                        </span>
+
+                        <strong id="result-cpu-score">
+                            0
+                        </strong>
+
+                    </div>
+
+                </div>
+
+
+                <!-- PLAY STYLE -->
+
+                <div class="play-style-box">
+
+                    <p class="result-label">
+                        PLAY STYLE
+                    </p>
+
+                    <h3 id="result-play-style">
+                        CARD READER
+                    </h3>
+
+                    <p id="result-play-style-description">
+                        CPUの手札を読みながら
+                        カードを使い切りました。
+                    </p>
+
+                </div>
+
+
+                <!-- RESULT MESSAGE -->
+
+                <p
+                    id="result-message"
+                    class="result-message"
+                >
+                    5ROUND、おつかれさまでした。
+                </p>
+
+
+                <!-- BUTTONS -->
+
+                <div class="result-buttons">
+
+                    <button
+                        id="retry-button"
+                        class="retry-button"
+                        type="button"
+                    >
+                        もう一度対戦する
+                    </button>
+
+
+                    <button
+                        id="title-button"
+                        class="title-button"
+                        type="button"
+                    >
+                        タイトルへ戻る
+                    </button>
+
+                </div>
+
+            </div>
+
+        </section>
+
+    </main>
+
+
+    <script
+        src="{% static 'game/js/game.js' %}"
+        defer
+    ></script>
+
+</body>
+
+</html>
